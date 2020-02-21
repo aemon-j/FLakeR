@@ -52,7 +52,7 @@ run_flake <- function (sim_folder = ".", nml_file = NULL, verbose = FALSE)
 
   if (.Platform$pkgType == "source") {
     #stop('No FLake executable available for your machine yet...')
-    return(run_flakeNIX(sim_folder, verbose, args))
+    return(run_flakeNIX(sim_folder, nml_file = nml, verbose = verbose))
   }
 }
 
