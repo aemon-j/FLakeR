@@ -38,7 +38,7 @@ run_flake <- function (sim_folder = ".", nml_file = NULL, verbose = FALSE)
 
   ### macOS ###
   if (grepl('mac.binary',.Platform$pkgType)) {
-    stop('No FLake executable available for your machine yet...')
+    # stop('No FLake executable available for your machine yet...')
     maj_v_number <- as.numeric(strsplit(
       Sys.info()["release"][[1]],'.', fixed = TRUE)[[1]][1])
 
@@ -46,13 +46,13 @@ run_flake <- function (sim_folder = ".", nml_file = NULL, verbose = FALSE)
       stop('pre-mavericks mac OSX is not supported. Consider upgrading')
     }
 
-    return(run_flakeOSx(sim_folder, verbose, system.args))
+    return(run_flakeOSx(sim_folder, nml_file = nml, verbose = verbose))
 
   }
 
   if (.Platform$pkgType == "source") {
-    stop('No FLake executable available for your machine yet...')
-    return(run_flakeNIX(sim_folder, verbose, args))
+    #stop('No FLake executable available for your machine yet...')
+    return(run_flakeNIX(sim_folder, nml_file = nml, verbose = verbose))
   }
 }
 
@@ -81,6 +81,8 @@ run_flakeWin <- function(sim_folder, nml_file, verbose = FALSE){
     setwd(origin)
   })
 }
+
+
 
 # run_flakeOSx <- function(sim_folder, nml = TRUE, nml_file = 'flake.nml', verbose = TRUE, args){
 #   #lib_path <- system.file('extbin/macFLake/bin', package=packageName()) #Not sure if libraries needed for FLake
@@ -118,32 +120,50 @@ run_flakeWin <- function(sim_folder, nml_file, verbose = FALSE){
 #   })
 # }
 
-# run_flakeNIX <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
-#   flake_path <- system.file('exec/nixflake', package=packageName())
-#
-#   if(nml){
-#     args <- c(args, nml_file)
-#   }else{
-#     args <- c(args,'--read_nml')
-#   }
-#
-#   origin <- getwd()
-#   setwd(sim_folder)
-#   Sys.setenv(LD_LIBRARY_PATH=system.file('extbin/nixflake',
-#                                          package=packageName()))
-#
-#   tryCatch({
-#     if (verbose){
-#       out <- system2(flake_path, wait = TRUE, stdout = "",
-#                      stderr = "", args=args)
-#     } else {
-#       out <- system2(flake_path, wait = TRUE, stdout = NULL,
-#                      stderr = NULL, args = args)
-#     }
-#     setwd(origin)
-#     return(out)
-#   }, error = function(err) {
-#     print(paste("FLake_ERROR:  ",err))
-#     setwd(origin)
-#   })
-# }
+run_flakeOSx <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
+  flake_path <- system.file('extbin/macflake', package='FLakeR')
+
+
+  origin <- getwd()
+  setwd(sim_folder)
+  Sys.setenv(LD_LIBRARY_PATH=system.file('extbin/nixflake',
+                                         'FLakeR'))
+  tryCatch({
+    if (verbose){
+      out <- system2(flake_path, wait = TRUE, stdout = TRUE,
+                     stderr = "", args=par_file)
+    } else {
+      out <- system2(flake_path, args=nml_file)
+    }
+    setwd(origin)
+    return(out)
+  }, error = function(err) {
+    print(paste("FLake_ERROR:  ",err))
+    setwd(origin)
+  })
+
+}
+
+run_flakeNIX <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
+  flake_path <- system.file('extbin/nixflake', package='FLakeR')
+
+
+  origin <- getwd()
+  setwd(sim_folder)
+  Sys.setenv(LD_LIBRARY_PATH=system.file('extbin/nixflake',
+                                         'FLakeR'))
+  tryCatch({
+    if (verbose){
+      out <- system2(flake_path, wait = TRUE, stdout = TRUE,
+                     stderr = "", args=par_file)
+    } else {
+      out <- system2(flake_path, args=nml_file)
+    }
+    setwd(origin)
+    return(out)
+  }, error = function(err) {
+    print(paste("FLake_ERROR:  ",err))
+    setwd(origin)
+  })
+
+}
