@@ -129,7 +129,7 @@ run_flakeOSx <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
   Sys.setenv(LD_LIBRARY_PATH = paste(system.file('extbin/nix',
                                                  package = packageName()),
                                      Sys.getenv('LD_LIBRARY_PATH'),
-                                     sep = ":")))
+                                     sep = ":"))
   tryCatch({
     if (verbose){
       out <- system2(flake_path, wait = TRUE, stdout = TRUE,
