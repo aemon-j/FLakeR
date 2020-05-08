@@ -72,7 +72,8 @@ run_flakeWin <- function(sim_folder, nml_file, verbose = FALSE){
       out <- system2(flake_path, wait = TRUE, stdout = TRUE,
                      stderr = "", args=nml_file)
     } else {
-      out <- system2(flake_path, args=nml_file)
+      out <- system2(flake_path, stdout = NULL,
+                     stderr = NULL, args=nml_file)
     }
     setwd(origin)
     return(out)
@@ -133,7 +134,8 @@ run_flakeOSx <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
       out <- system2(flake_path, wait = TRUE, stdout = TRUE,
                      stderr = "", args=par_file)
     } else {
-      out <- system2(flake_path, args=nml_file)
+      out <- system2(flake_path, stdout = NULL,
+                     stderr = NULL, args=nml_file)
     }
     setwd(origin)
     return(out)
@@ -157,7 +159,8 @@ run_flakeNIX <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
       out <- system2(flake_path, wait = TRUE, stdout = TRUE,
                      stderr = "", args=par_file)
     } else {
-      out <- system2(flake_path, args=nml_file)
+      out <- system2(flake_path, stdout = NULL,
+                     stderr = NULL, args=nml_file)
     }
     setwd(origin)
     return(out)
