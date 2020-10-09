@@ -131,7 +131,7 @@ run_flakeOSx <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
   tryCatch({
     if (verbose){
       out <- system2(flake_path, wait = TRUE, stdout = TRUE,
-                     stderr = "", args=par_file)
+                     stderr = "", args=nml_file)
     } else {
       out <- system2(flake_path, args=nml_file)
     }
@@ -155,7 +155,7 @@ run_flakeNIX <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
   tryCatch({
     if (verbose){
       out <- system2(flake_path, wait = TRUE, stdout = TRUE,
-                     stderr = "", args=par_file)
+                     stderr = "", args=nml_file)
     } else {
       out <- system2(flake_path, args=nml_file)
     }
