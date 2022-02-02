@@ -18,9 +18,6 @@ devtools::install_github("aemon-j/FLakeR")
 
 ```{r example, eval=FALSE}
 library(FLakeR)
-sim_folder <- system.file('extdata', package = 'FLakeR')
-run_flake(sim_folder, nml_file = 'Heiligensee80-96.nml')
+sim_folder <- system.file("extdata", package = "FLakeR")
+run_flake(sim_folder, nml_file = "flake.nml")
 ```
-
-### Output
-Suite of tools for working with FLake output coming soon...
