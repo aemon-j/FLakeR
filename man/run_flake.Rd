@@ -4,12 +4,12 @@
 \alias{run_flake}
 \title{Run the FLake model}
 \usage{
-run_flake(sim_folder = ".", nml_file = NULL, verbose = FALSE)
+run_flake(sim_folder = ".", nml_file = "flake.nml", verbose = FALSE)
 }
 \arguments{
 \item{sim_folder}{the directory where simulation files are contained}
 
-\item{nml_file}{filepath; to file with FLake setup. Defaults to 'flake.nml'}
+\item{nml_file}{filepath; to file with FLake setup. Defaults to "flake.nml"}
 
 \item{verbose}{Save output as character vector. Defaults to FALSE}
 }
@@ -18,8 +18,8 @@ This runs the FLake model on the specific simulation stored in \code{sim_folder}
 The specified \code{sim_folder} must contain valid NML files.
 }
 \examples{
-sim_folder <- system.file('extdata', package = 'FLakeR')
-run_flake(sim_folder, nml_file = 'Heiligensee80-96.nml')
+sim_folder <- system.file("extdata", package = "FLakeR")
+run_flake(sim_folder, nml_file = "flake.nml")
 }
 \author{
 Tadhg Moore
