@@ -59,7 +59,7 @@ run_flake <- function (sim_folder = ".", nml_file = NULL, verbose = FALSE)
 run_flakeWin <- function(sim_folder, nml_file, verbose = FALSE){
 
   if(.Platform$r_arch == 'x64'){
-    flake_path <- system.file('extbin/flake.exe', package = 'FLakeR') #packageName()
+    flake_path <- system.file('extbin/win/flake.exe', package = packageName()) 
   }else{
     stop('No FLake executable available for your machine yet...')
   }
@@ -72,7 +72,8 @@ run_flakeWin <- function(sim_folder, nml_file, verbose = FALSE){
       out <- system2(flake_path, wait = TRUE, stdout = TRUE,
                      stderr = "", args=nml_file)
     } else {
-      out <- system2(flake_path, args=nml_file)
+      out <- system2(flake_path, stdout = NULL,
+                     stderr = NULL, args=nml_file)
     }
     setwd(origin)
     return(out)
@@ -121,19 +122,22 @@ run_flakeWin <- function(sim_folder, nml_file, verbose = FALSE){
 # }
 
 run_flakeOSx <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
-  flake_path <- system.file('extbin/macflake', package='FLakeR')
+  flake_path <- system.file('exec/macflake', package='FLakeR')
 
 
   origin <- getwd()
   setwd(sim_folder)
-  Sys.setenv(LD_LIBRARY_PATH=system.file('extbin/nixflake',
-                                         'FLakeR'))
+  Sys.setenv(LD_LIBRARY_PATH = paste(system.file('extbin/nix',
+                                                 package = packageName()),
+                                     Sys.getenv('LD_LIBRARY_PATH'),
+                                     sep = ":"))
   tryCatch({
     if (verbose){
       out <- system2(flake_path, wait = TRUE, stdout = TRUE,
                      stderr = "", args=nml_file)
     } else {
-      out <- system2(flake_path, args=nml_file)
+      out <- system2(flake_path, stdout = NULL,
+                     stderr = NULL, args=nml_file)
     }
     setwd(origin)
     return(out)
@@ -145,19 +149,22 @@ run_flakeOSx <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
 }
 
 run_flakeNIX <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
-  flake_path <- system.file('extbin/nixflake', package='FLakeR')
+  flake_path <- system.file('exec/nixflake', package=packageName())
 
 
   origin <- getwd()
   setwd(sim_folder)
-  Sys.setenv(LD_LIBRARY_PATH=system.file('extbin/nixflake',
-                                         'FLakeR'))
+  Sys.setenv(LD_LIBRARY_PATH = paste(system.file('extbin/nix',
+                                                 package = packageName()),
+                                     Sys.getenv('LD_LIBRARY_PATH'), 
+                                     sep = ":"))
   tryCatch({
     if (verbose){
       out <- system2(flake_path, wait = TRUE, stdout = TRUE,
                      stderr = "", args=nml_file)
     } else {
-      out <- system2(flake_path, args=nml_file)
+      out <- system2(flake_path, stdout = NULL,
+                     stderr = NULL, args=nml_file)
     }
     setwd(origin)
     return(out)
