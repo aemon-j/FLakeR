@@ -58,6 +58,7 @@ run_flake <- function (sim_folder = ".", nml_file = "flake.nml", verbose = FALSE
 
 run_flakeWin <- function(sim_folder, nml_file, verbose = FALSE){
 
+
   if(.Platform$r_arch == "x64"){
     flake_path <- system.file("extbin/win/flake.exe", package = packageName()) 
   }else{
@@ -121,9 +122,9 @@ run_flakeWin <- function(sim_folder, nml_file, verbose = FALSE){
 #   })
 # }
 
-run_flakeOSx <- function(sim_folder, nml_file = "flake.nml", verbose=FALSE){
-  flake_path <- system.file("exec/macflake", package="FLakeR")
 
+run_flakeOSx <- function(sim_folder, nml_file = "flake.nml", verbose=FALSE){
+  flake_path <- system.file("exec/flake", package="FLakeR")
 
   origin <- getwd()
   setwd(sim_folder)
