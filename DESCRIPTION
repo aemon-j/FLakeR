@@ -1,7 +1,7 @@
 Package: FLakeR
 Type: Package
 Title: Work with FLake in R
-Version: 0.0.9
+Version: 0.0.10
 Authors@R: person("Tadhg", "Moore", email = "tadhg.moore@dkit.ie", role = c("aut", "cre"))
 Maintainer: The package maintainer <tadhg.moore@dkit.ie>
 Description: Run the FLake model within R. Comes with a compiled version of FLake and example files.

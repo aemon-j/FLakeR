@@ -127,6 +127,8 @@ run_flakeOSx <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
 
   origin <- getwd()
   setwd(sim_folder)
+  old_ld_path <- Sys.getenv('LD_LIBRARY_PATH')
+  on.exit(expr = {Sys.setenv(LD_LIBRARY_PATH = old_ld_path)})
   Sys.setenv(LD_LIBRARY_PATH = paste(system.file('extbin/nix',
                                                  package = packageName()),
                                      Sys.getenv('LD_LIBRARY_PATH'),
@@ -145,7 +147,6 @@ run_flakeOSx <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
     print(paste("FLake_ERROR:  ",err))
     setwd(origin)
   })
-
 }
 
 run_flakeNIX <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
@@ -154,6 +155,8 @@ run_flakeNIX <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
 
   origin <- getwd()
   setwd(sim_folder)
+  old_ld_path <- Sys.getenv('LD_LIBRARY_PATH')
+  on.exit(expr = {Sys.setenv(LD_LIBRARY_PATH = old_ld_path)})
   Sys.setenv(LD_LIBRARY_PATH = paste(system.file('extbin/nix',
                                                  package = packageName()),
                                      Sys.getenv('LD_LIBRARY_PATH'), 
@@ -172,5 +175,4 @@ run_flakeNIX <- function(sim_folder, nml_file = 'flake.nml', verbose=FALSE){
     print(paste("FLake_ERROR:  ",err))
     setwd(origin)
   })
-
 }
